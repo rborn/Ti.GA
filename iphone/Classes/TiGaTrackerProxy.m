@@ -46,9 +46,33 @@
         [self createTracker:_trackerId];
     }
     
+    [_tracker set:kGAIAnonymizeIp value:@"1"];
     [_tracker set:kGAIUseSecure value:[(_useSecure? @YES : @NO) stringValue]];
     
     [super _initWithProperties:properties];
+}
+
+-(void)setUserID:(NSString*)userID // Not "args" like addScreenView because its prefixed with "set" and so expects a single value
+{
+    ENSURE_UI_THREAD(setUserID, userID);
+    //ENSURE_TYPE(userID, NSString)
+    if(_debug){
+        NSLog(@"[DEBUG] setUserID: %@", userID);
+    }
+    [_tracker set:kGAIUserId value:userID];
+}
+
+-(NSString*)getUserID
+{
+    return [_tracker get:kGAIUserId];
+}
+
+-(void)clearUserID
+{
+    [_tracker set:kGAIUserId value:nil];
+    if(_debug){
+        NSLog(@"[DEBUG] clearUserID");
+    }
 }
 
 -(void)startSession:(id)unused
@@ -57,7 +81,7 @@
     if(_debug){
         NSLog(@"[DEBUG] Starting Session");
     }
-    [_tracker send:[[[GAIDictionaryBuilder createAppView] set:@"start" forKey:kGAISessionControl] build] ];
+    [_tracker send:[[[GAIDictionaryBuilder createScreenView] set:@"start" forKey:kGAISessionControl] build] ];
 }
 
 -(void)endSession:(id)unused
@@ -66,7 +90,7 @@
     if(_debug){
         NSLog(@"[DEBUG] Ending Session");
     }
-    [_tracker send:[[[GAIDictionaryBuilder createAppView] set:@"end" forKey:kGAISessionControl] build] ];
+    [_tracker send:[[[GAIDictionaryBuilder createScreenView] set:@"end" forKey:kGAISessionControl] build] ];
 }
 
 -(void)addScreenView:(id)args
@@ -78,7 +102,7 @@
         NSLog(@"[DEBUG] addScreenView: %@", screen);
     }
     [_tracker set:kGAIScreenName value:screen];
-    [_tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [_tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 -(void)addEvent:(id)args

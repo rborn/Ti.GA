@@ -28,7 +28,7 @@ public class TigaModule extends KrollModule
 	
 	public TigaModule()
 	{
-		super();		
+		super();
 		_ga = GoogleAnalytics.getInstance(TiApplication.getInstance().getApplicationContext());		
 	}
 
@@ -71,7 +71,8 @@ public class TigaModule extends KrollModule
 		_dispatchInterval = value;
 		_ga.setLocalDispatchPeriod(value);
 	}
-	
+
+	@Kroll.method
 	public boolean getOptOut()
 	{
 		return _ga.getAppOptOut();
