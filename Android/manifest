@@ -2,17 +2,17 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 2.4.0
-apiversion: 2
-architectures: armeabi armeabi-v7a x86
+version: 3.0.4
+apiversion: 3
+architectures: armeabi-v7a x86
 description: tiga
-author: Ben Bahrenburg (bencoding)
-license: Apache 2
-copyright: Copyright (c) 2014 by Ben Bahrenburg (bencoding)
+author: Your Name
+license: Specify your license
+copyright: Copyright (c) 2016 by Your Company
 
 # these should not be edited
 name: tiga
 moduleid: ti.ga
 guid: e0babc76-21f5-4fbf-8581-ae0b00235068
 platform: android
-minsdk: 5.4.0.GA
+minsdk: 6.0.0
